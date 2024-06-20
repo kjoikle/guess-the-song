@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import PlaylistButton from "../PlaylistButton/PlaylistButton";
+import "./SpotifyGetPlaylists.css"
 
 const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists"
 
@@ -20,7 +22,6 @@ function SpotifyGetPlaylists() {
         },
     }).then(resp => {
         setData(resp.data);
-        console.log(data)
     }).catch(err => {
         console.log(err);
     })
@@ -29,7 +30,10 @@ function SpotifyGetPlaylists() {
   return (
     <>
       <button onClick={handleGetPlaylists}>Get Playlists</button>
-      {data?.items ? data.items.map((item) => <p>{item.name}</p>) : null}
+
+      <div className="playlistsContainer">
+        {data?.items ? data.items.map( (item) => {return <PlaylistButton key={item.id} playlist={item}/>}) : null}
+      </div>
     </>
     )
 }
