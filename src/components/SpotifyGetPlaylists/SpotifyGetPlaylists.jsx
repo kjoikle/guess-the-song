@@ -4,6 +4,7 @@ import PlaylistButton from "../PlaylistButton/PlaylistButton";
 import "./SpotifyGetPlaylists.css"
 
 const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists"
+const LIKED_SONGS_ENDPOINT = "https://api.spotify.com/v1/me/tracks"
 
 function SpotifyGetPlaylists() {
   const [token, setToken] = useState("");
@@ -15,16 +16,13 @@ function SpotifyGetPlaylists() {
     }
   }, []);
 
-  function handleGetPlaylists() {
-    axios.get(PLAYLISTS_ENDPOINT, {
+  async function handleGetPlaylists() {
+    let res = await axios.get(PLAYLISTS_ENDPOINT, {
         headers: {
             Authorization: "Bearer " + token,
         },
-    }).then(resp => {
-        setData(resp.data);
-    }).catch(err => {
-        console.log(err);
     })
+    setData(res.data);
   }
 
   return (
