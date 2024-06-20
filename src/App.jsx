@@ -41,7 +41,7 @@ function App() {
 
   return (
     <div>
-      <button onClick={handleLogin}>Login in Spotify</button>
+      <button onClick={handleLogin}>Login in to Spotify</button>
       <SpotifyGetPlaylists />
     </div>
   );
