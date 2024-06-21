@@ -6,7 +6,7 @@ import "./SpotifyGetPlaylists.css";
 const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
 const LIKED_SONGS_ENDPOINT = "https://api.spotify.com/v1/me/tracks"; // maybe use for a later implementation
 
-function SpotifyGetPlaylists({ token }) {
+function SpotifyGetPlaylists({ token, setPlaylist }) {
   const [data, setData] = useState({});
 
   async function handleGetPlaylists() {
@@ -30,7 +30,12 @@ function SpotifyGetPlaylists({ token }) {
         {data?.items
           ? data.items.map((item) => {
               return (
-                <PlaylistButton key={item.id} playlist={item} token={token} />
+                <PlaylistButton
+                  key={item.id}
+                  playlist={item}
+                  token={token}
+                  setPlaylist={setPlaylist}
+                />
               );
             })
           : null}

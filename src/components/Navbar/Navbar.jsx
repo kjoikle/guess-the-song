@@ -4,10 +4,13 @@ function Navbar() {
   return (
     <>
       <Link to="/">
-        <button>Home</button>
+        <button>Log In Page</button>
       </Link>
       <Link to="/game">
         <button>Game</button>
+      </Link>
+      <Link to="/select">
+        <button>Select</button>
       </Link>
     </>
   );
