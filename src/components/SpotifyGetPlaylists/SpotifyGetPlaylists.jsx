@@ -1,28 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import PlaylistButton from "../PlaylistButton/PlaylistButton";
-import "./SpotifyGetPlaylists.css"
+import PlaylistButton from "../PlaylistButton";
+import "./SpotifyGetPlaylists.css";
 
-const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists"
-const LIKED_SONGS_ENDPOINT = "https://api.spotify.com/v1/me/tracks"
+const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
+const LIKED_SONGS_ENDPOINT = "https://api.spotify.com/v1/me/tracks"; // maybe use for a later implementation
 
-function SpotifyGetPlaylists() {
-  const [token, setToken] = useState("");
+function SpotifyGetPlaylists({ token }) {
   const [data, setData] = useState({});
 
-  useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      setToken(localStorage.getItem("accessToken"));
-    }
-  }, []);
-
   async function handleGetPlaylists() {
-    let res = await axios.get(PLAYLISTS_ENDPOINT, {
+    try {
+      let res = await axios.get(PLAYLISTS_ENDPOINT, {
         headers: {
-            Authorization: "Bearer " + token,
+          Authorization: "Bearer " + token,
         },
-    })
-    setData(res.data);
+      });
+      setData(res.data);
+    } catch (err) {
+      throw err;
+    }
   }
 
   return (
@@ -30,10 +27,16 @@ function SpotifyGetPlaylists() {
       <button onClick={handleGetPlaylists}>Get Playlists</button>
 
       <div className="playlistsContainer">
-        {data?.items ? data.items.map( (item) => {return <PlaylistButton key={item.id} playlist={item}/>}) : null}
+        {data?.items
+          ? data.items.map((item) => {
+              return (
+                <PlaylistButton key={item.id} playlist={item} token={token} />
+              );
+            })
+          : null}
       </div>
     </>
-    )
+  );
 }
 
 export default SpotifyGetPlaylists;

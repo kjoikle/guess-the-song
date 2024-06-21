@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./SpotifyLoginButton.css"
+import "./SpotifyLoginButton.css";
 
 const CLIENT_ID = "763403119bd747cea51c6fb25350f843";
 const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize";
@@ -40,8 +40,10 @@ function SpotifyLoginButton() {
   }
 
   return (
-    <button className="loginBtn" onClick={handleLogin}>Login in to Spotify</button>
-  )
+    <button className="loginBtn" onClick={handleLogin}>
+      Login in to Spotify
+    </button>
+  );
 }
 
 export default SpotifyLoginButton;
